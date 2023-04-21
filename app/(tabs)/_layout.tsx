@@ -1,7 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
-import { AntDesign } from "@expo/vector-icons"
+import { AntDesign, Foundation } from "@expo/vector-icons"
 
 import Colors from '../../constants/Colors';
 
@@ -26,7 +26,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
           // tabBarIcon: ({ color }) => <AntDesign name='barschart' color={color} />,
           headerRight: () => (
@@ -46,9 +46,16 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+      name='expenses'
+      options={{
+        title: '',
+        tabBarIcon: ({color}) => <Foundation name='dollar-bill' color={color} size={32}/>
+      }}
+      />
+      <Tabs.Screen
         name="two"
         options={{
-          title: 'Stocks',
+          title: '',
           tabBarIcon: ({ color }) => <AntDesign name='barschart' color={color} size={32} />,
         }}
       />

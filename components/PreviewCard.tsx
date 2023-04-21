@@ -14,22 +14,18 @@ export function PreviewCard({infoToFetch, previewCardTitle}: PreviewCardProps){
     if(infoToFetch){
         if(infoToFetch === 'next-month'){
             (async () => {
-                console.log('conditional async being called.')
-                const response = await fetchMonthPreview('default');
-                console.log('response being received on the frontend: ', response)
-                setPreview(await response);
+                // const response = await fetchMonthPreview('default');
+                // setPreview(await response);
             })();            
         } else if(infoToFetch === 'six-months'){
             (async () => {
-                const response = await fetchSixMonthsPreview('default');
-                console.log('response being received on the frontend: ', response)
-                setPreview(await response);
+                // const response = await fetchSixMonthsPreview('default');
+                // setPreview(await response);
             })();
         }else if(infoToFetch === 'one-year'){
             (async () => {
-                const response = await fetchYearPreview('default');
-                console.log('response being received on the frontend: ', response)
-                setPreview(await response);
+                // const response = await fetchYearPreview('default');
+                // setPreview(await response);
             })();
         }else {
             console.log('Error, infoToFetch === ', infoToFetch)
@@ -65,9 +61,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         marginBottom: 16,
         paddingVertical: 4,
-        elevation: 10,
+        elevation: 4,
         shadowColor: '#52006A',
-
     },
     previewCardHeader: {
         backgroundColor: '#ffffff',

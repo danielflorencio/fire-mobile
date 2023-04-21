@@ -19,13 +19,14 @@ const styles = StyleSheet.create({
     welcomeMessage: {
         backgroundColor: '#ffffff',
         width: '90%',
-        paddingVertical: 6,
+        paddingVertical: 10,
         paddingHorizontal: 12,
-        borderWidth: 1,
         borderRadius: 12,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
+        elevation: 10,
+        shadowColor: '#52006A',
     },
     chatBubbleContainer: {
         backgroundColor: '#ffffff',
@@ -40,6 +41,6 @@ const styles = StyleSheet.create({
     },
     chatMessage: {
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: '500'
     }
 })
