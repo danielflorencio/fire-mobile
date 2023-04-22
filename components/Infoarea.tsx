@@ -1,3 +1,6 @@
+import { View, Text } from "./Themed";
+import { StyleSheet } from "react-native";
+import { EvilIcons } from "@expo/vector-icons";
 type Props = {
     currentMonth: string,
     onMonthChange: (newMonth: string) => void;
@@ -21,7 +24,27 @@ export default function InfoArea({currentMonth, onMonthChange, income, expense} 
     }
     
     return(
-        <>
-        </>
+        <View style={styles.card}>  
+            <EvilIcons name="arrow-left" size={36} onTouchEnd={handlePrevMonth}/>
+            <Text>{currentMonth}</Text>
+            <EvilIcons name="arrow-right" size={36} onTouchEnd={handleNextMonth}/>
+        </View>
     )
 }
+
+const styles = StyleSheet.create({
+    card: {
+        backgroundColor: '#ffffff',
+        width: '90%',
+        borderRadius: 12,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        marginBottom: 16,
+        paddingVertical: 24,
+        elevation: 4,
+        shadowColor: '#52006A',
+    },
+
+})

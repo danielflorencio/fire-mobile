@@ -37,8 +37,7 @@ export default function ExpenseTracker(){
     }
 
     return(
-        <View>
-            <Text>Testing new page.</Text>
+        <View style={styles.expensesPage}>
             <InfoArea 
             onMonthChange={handleMonthChange} 
             currentMonth={currentMonth}
@@ -54,7 +53,9 @@ export default function ExpenseTracker(){
 }
 
 const styles = StyleSheet.create({
-    class: {
-
+    expensesPage: {
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center'
     },
 })
