@@ -2,31 +2,35 @@ import { useState } from "react"
 import { View, Text, StyleSheet} from "react-native";
 
 type SelectDropdownProps = {
-    options: string[]
+    options: string[],
+    choosenCategory: string, 
+    setChoosenCategory: (arg: string) => void; 
 }
 
-export default function SelectDropdown({options}: SelectDropdownProps ){
+export default function SelectDropdown({options, choosenCategory, setChoosenCategory}: SelectDropdownProps ){
     
     const [visibility, setVisibility] = useState<'hidden' | 'visible'>('hidden');
 
     function handleChangeVisibility(){
         if(visibility === 'visible'){
-            console.log('function called.')
             setVisibility('hidden')
         } else{
-            console.log('function called.')
             setVisibility('visible')
         }
+    }
+
+    function handlePressOption(arrayIndex: number){
+        setChoosenCategory(options[arrayIndex]);
     }
 
     return(
         <View onTouchEnd={handleChangeVisibility} style={styles.dropdownContainer}>
             {visibility === 'visible' ? (
-            options.map((option, index) => (
-                <View key={index} style={{backfaceVisibility: visibility}}>
+            options.map((option, arrayIndex) => (
+                <View key={arrayIndex} style={[styles.dropdownOption, {backfaceVisibility: visibility}]} onTouchEnd={() => handlePressOption(arrayIndex)}>
                     <Text>{option}</Text>
                 </View>
-            )) ) : (<></>)
+            )) ) : (<Text>{choosenCategory}</Text>)
             }
         </View>
     )
@@ -36,12 +40,13 @@ const styles = StyleSheet.create({
     dropdownContainer: {
         flex: 0,
         height: '10%',
-        borderWidth: 1
+        zIndex: 1
     },
     dropdownOption: {
-        flex: 0, 
-        height: '10%',
+        width: '100%',
+        display: 'flex',
+        height: '100%',
+        backgroundColor: 'white',
         borderWidth: 1,
-        position: "absolute"    
     }
 })

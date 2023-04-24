@@ -48,6 +48,8 @@ export default function AddExpenseForm({ onAdd }: {onAdd: (expense: Expense) => 
     };
   
     let categoryKeys: string[] = Object.keys(categories);
+
+    const [choosenCategory, setChoosenCategory] = useState('Choose a category.');
   
     const handleAddEvent = () => {
       let errors: string[] = [];
@@ -107,7 +109,7 @@ export default function AddExpenseForm({ onAdd }: {onAdd: (expense: Expense) => 
           placeholder='Category'
           inputContainerStyle={styles.textInput}
         /> */}
-        <SelectDropdown options={categoryKeys}></SelectDropdown>
+        <SelectDropdown options={categoryKeys} choosenCategory={choosenCategory} setChoosenCategory={setChoosenCategory}></SelectDropdown>
         {/* <Picker
         value={categoryField}
         >
@@ -115,7 +117,7 @@ export default function AddExpenseForm({ onAdd }: {onAdd: (expense: Expense) => 
         </Picker> */}
         {/* <DateTimePicker mode="time" /> */}
         <View>
-          <Button onPress={showDatepicker} title="Show date picker!" />
+          {/* <Button onPress={showDatepicker} title="Show date picker!" />
           <Button onPress={showTimepicker} title="Show time picker!" />
           <Text>selected: {date.toLocaleString()}</Text>
           {show && (
@@ -126,11 +128,11 @@ export default function AddExpenseForm({ onAdd }: {onAdd: (expense: Expense) => 
               is24Hour={true}
               onChange={() => onChange}
             />
-          )}
+          )} */}
         </View>
 
-
-        <Button
+        <View style={{position: 'relative', display: 'flex', flex: 0, alignItems: 'center', marginTop: 62}}>
+        <Button containerStyle={{ position: 'absolute', bottom: 0}} 
           icon={
             <Icon
               name="wrench"
@@ -143,6 +145,7 @@ export default function AddExpenseForm({ onAdd }: {onAdd: (expense: Expense) => 
           title="Start Building"
           onPress={toggleOverlay}
         />
+        </View>
       </Overlay>
     </View>
     )
