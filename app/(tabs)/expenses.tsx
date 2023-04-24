@@ -1,5 +1,5 @@
 import { View, Text } from "../../components/Themed";
-import {StyleSheet} from 'react-native'
+import {StyleSheet, ScrollView} from 'react-native'
 import { Expense } from "../../types/expense";
 import { filterListByMonth, getCurrentMonth } from "../../helpers/dateFilter";
 import { useEffect, useState } from "react";
@@ -37,7 +37,8 @@ export default function ExpenseTracker(){
     }
 
     return(
-        <View style={styles.expensesPage}>
+        <ScrollView  contentContainerStyle={{alignItems: 'center',      backgroundColor: 'white', paddingTop: 16,
+        display: 'flex', width: '100%'}}>
             <InfoArea 
             onMonthChange={handleMonthChange} 
             currentMonth={currentMonth}
@@ -48,7 +49,7 @@ export default function ExpenseTracker(){
                 <AddExpenseForm onAdd={handleAddExpense}/>  
             {/* </View> */}
             <ExpensesList list={filteredList}/>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -56,8 +57,8 @@ const styles = StyleSheet.create({
     expensesPage: {
         height: '100%',
         display: 'flex',
-        alignItems: 'center',
-        width: '100%'
+        // alignItems: 'center',
+        width: '100%',
     },
     expenseFormAdjuster: {
         // width: '100%',
