@@ -4,6 +4,7 @@ import { View } from '../../components/Themed';
 // import { Divider } from '@rneui/base';
 import WelcomeMessage from '../../components/WelcomeMessage';
 import {PreviewCard} from '../../components/PreviewCard';
+import BalanceInfo from '../../components/BalanceInfo';
 
 export default function TabOneScreen() {
   return (
@@ -11,6 +12,7 @@ export default function TabOneScreen() {
     <View style={styles.container}>
       {/* <Text style={styles.title}>Tab One - Test one.</Text> */}
       <WelcomeMessage/>
+      <BalanceInfo/>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />      
       {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
       <PreviewCard previewCardTitle='Next Month Preview: ' infoToFetch='next-month'/>

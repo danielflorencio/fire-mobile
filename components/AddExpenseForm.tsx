@@ -88,7 +88,7 @@ export default function AddExpenseForm({ onAdd }: {onAdd: (expense: Expense) => 
     return(
       <View style={{marginBottom: 16}}>
       <Button
-        title="Open Overlay"
+        title="Create expense"
         onPress={toggleOverlay}
         buttonStyle={{borderRadius: 12, }}
         // type="solid"
@@ -142,7 +142,7 @@ export default function AddExpenseForm({ onAdd }: {onAdd: (expense: Expense) => 
               iconStyle={{ marginRight: 10 }}
             />
           }
-          title="Start Building"
+          title="Add expense"
           onPress={toggleOverlay}
         />
         </View>
