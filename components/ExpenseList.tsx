@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: '#ffffff',
         width: '90%',
-        // height: '13%',
         borderRadius: 12,
         display: 'flex',
         flexDirection: 'column',
@@ -33,6 +32,5 @@ const styles = StyleSheet.create({
         paddingVertical: 4,
         elevation: 4,
         shadowColor: '#52006A',
-        // marginBottom: 2
     }
 })

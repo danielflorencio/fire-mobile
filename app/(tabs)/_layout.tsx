@@ -28,7 +28,6 @@ export default function TabLayout() {
         options={{
           title: '',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-          // tabBarIcon: ({ color }) => <AntDesign name='barschart' color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
