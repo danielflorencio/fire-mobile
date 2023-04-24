@@ -44,10 +44,10 @@ export default function ExpenseTracker(){
             income={income}
             expense={expense}
             />    
-            <AddExpenseForm onAdd={handleAddExpense}/>  
-            <View>
-                <ExpensesList list={filteredList}/>
-            </View>
+            {/* <View style={styles.expenseFormAdjuster}> */}
+                <AddExpenseForm onAdd={handleAddExpense}/>  
+            {/* </View> */}
+            <ExpensesList list={filteredList}/>
         </View>
     )
 }
@@ -56,6 +56,14 @@ const styles = StyleSheet.create({
     expensesPage: {
         height: '100%',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '100%'
     },
+    expenseFormAdjuster: {
+        // width: '100%',
+        // display: 'flex',
+        // flexDirection: 'row',
+        // alignItems: 'center',
+        // justifyContent: 'center'
+    }
 })

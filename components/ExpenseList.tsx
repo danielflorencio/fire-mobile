@@ -5,7 +5,7 @@ import { View, Text} from "react-native";
 import { StyleSheet } from "react-native";
 export default function ExpensesList({list}: {list: Expense[]}){
     return(
-        <View style={styles.expenseListContainer}>
+        <>
         {
             list.map((expense, index) => (
                 <View key={index} style={styles.card}>
@@ -15,14 +15,11 @@ export default function ExpensesList({list}: {list: Expense[]}){
                 </View>
             ))
         }
-        </View>
+        </>
     )
 }
 
 const styles = StyleSheet.create({
-    expenseListContainer: {
-        width: '100%'
-    },
     card: {
         backgroundColor: '#ffffff',
         width: '90%',

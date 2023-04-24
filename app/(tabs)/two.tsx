@@ -1,20 +1,17 @@
-import { StyleSheet } from 'react-native';
-// import EditScreenInfo from '../../components/EditScreenInfo';
+import { StyleSheet, Linking } from 'react-native';
 import { Text, View } from '../../components/Themed';
-// import YouTube from 'react-native-youtube';
+import { AntDesign } from '@expo/vector-icons';
+
 export default function TabTwoScreen() {
+  
+  const handlePress = () => {
+    Linking.openURL('https://youtu.be/C4atterMyF0');
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Hey, this is another tab :{')'} </Text>
-      {/* <YouTube
-        videoId="C4atterMyF0"
-        play={true}
-        fullscreen={false}
-        loop={true}
-        style={{ alignSelf: 'stretch', height: 300 }}
-      /> */}
-      {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/two.tsx" /> */}
+      <Text style={styles.title}>Hey, this feature hasn't been ported to the app yet. {'\n\n'} Press the button below to see it working live. :{')'} {'\n'}</Text>
+      <AntDesign size={64} name='youtube' color={'red'} onPress={handlePress}/>
     </View>
   );
 }
@@ -26,8 +23,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: 14,
     fontWeight: 'bold',
+    width: '90%',
+    textAlign: 'center'
   },
   separator: {
     marginVertical: 30,
