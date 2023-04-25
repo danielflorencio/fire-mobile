@@ -18,7 +18,7 @@ export default function ExpensesList({list}: {list: Expense[]}){
                         <Text> {formatDate(expense.date)}</Text>
                     </View>
                     <View style={styles.valueContainer}>
-                        <Text style={styles.expenseValue}> $ {expense.value}</Text>
+                        <Text style={styles.expenseValue}> $ {expense.category === 'salary' ? (<></>) : (<>-</>)}{expense.value}</Text>
                     </View>
                 </View>
             ))
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         width: '60%'
     },
     valueContainer: {
-        width: '20%',
+        width: '22%',
         height: '100%',
         display: 'flex',
         flexDirection: 'row',
