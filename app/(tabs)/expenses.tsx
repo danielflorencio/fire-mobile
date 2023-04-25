@@ -36,8 +36,13 @@ export default function ExpenseTracker(){
     }
 
     return(
-        <ScrollView  contentContainerStyle={{alignItems: 'center',      backgroundColor: 'white', paddingTop: 16,
-        display: 'flex', width: '100%'}}>
+        <ScrollView  contentContainerStyle={{
+            alignItems: 'center',      
+            backgroundColor: 'white', 
+            paddingTop: 16,
+            display: 'flex', 
+            width: '100%', 
+            minHeight: '100%'}}>
             <InfoArea 
             onMonthChange={handleMonthChange} 
             currentMonth={currentMonth}

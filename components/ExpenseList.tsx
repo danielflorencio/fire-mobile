@@ -4,7 +4,7 @@ import { categories } from '../data/categories'
 import { View, Text} from "react-native";
 import { StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { Button, Icon, ListItem } from "@rneui/themed";
+import { Button, ListItem } from "@rneui/themed";
 export default function ExpensesList({list}: {list: Expense[]}){
     return(
         <View style={styles.expenseListContainer}>
