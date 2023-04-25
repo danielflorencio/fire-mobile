@@ -39,7 +39,7 @@ export function PreviewCard({infoToFetch, previewCardTitle}: PreviewCardProps){
             </View>
             <Divider/>
             <View style={styles.previewCardBottom}>
-                <Text style={styles.previewCardValue}>
+                <Text style={styles.previewCardValue}>  
                 {
                     preview !== undefined ? (preview) : (<>API is not online.</>)
                 }    
