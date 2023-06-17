@@ -38,13 +38,11 @@ export function PreviewCard({infoToFetch, previewCardTitle}: PreviewCardProps){
                 <Text style={styles.previewCardTitle} testID="previewCardTitle">{previewCardTitle}</Text>
             </View>
             {/* <Divider/> */}
-            <View style={styles.previewCardBottom}>
-                <Text style={styles.previewCardValue} testID="previewCardValue">  
-                {
-                    preview !== undefined ? (Number(preview).toFixed(2)) : (<>API is not online.</>)
-                }    
-                </Text>
-            </View>
+            <Text style={styles.previewCardValue} testID="previewCardValue">  
+            {
+                preview !== undefined ? (Number(preview).toFixed(2)) : (<>API is not online.</>)
+            }    
+            </Text>
         </View>
     )
 }
@@ -52,11 +50,12 @@ export function PreviewCard({infoToFetch, previewCardTitle}: PreviewCardProps){
 const styles = StyleSheet.create({
     previewCard: {
         // backgroundColor: '#ffffff',
-        width: '90%',
+        width: '50%',
         // height: '13%',
         // borderRadius: 12,
         display: 'flex',
-        // flexDirection: 'column',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
         // alignItems: 'center',
         // justifyContent: 'space-around',
         // marginBottom: 16,
