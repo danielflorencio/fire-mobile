@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native"
 import { View, Text } from "./Themed"
-import { Divider } from "@rneui/base"
+// import { Divider } from "@rneui/base"
 import { useState } from "react"
 import { fetchMonthPreview, fetchYearPreview, fetchSixMonthsPreview } from "../APIFunctions/fetchPreview"
 type PreviewCardProps = {
@@ -14,18 +14,18 @@ export function PreviewCard({infoToFetch, previewCardTitle}: PreviewCardProps){
     if(infoToFetch){
         if(infoToFetch === 'next-month'){
             (async () => {
-                // const response = await fetchMonthPreview('default');
-                // setPreview(await response);
+                const response = await fetchMonthPreview('default');
+                setPreview(await response);
             })();            
         } else if(infoToFetch === 'six-months'){
             (async () => {
-                // const response = await fetchSixMonthsPreview('default');
-                // setPreview(await response);
+                const response = await fetchSixMonthsPreview('default');
+                setPreview(await response);
             })();
         }else if(infoToFetch === 'one-year'){
             (async () => {
-                // const response = await fetchYearPreview('default');
-                // setPreview(await response);
+                const response = await fetchYearPreview('default');
+                setPreview(await response);
             })();
         }else {
             console.log('Error, infoToFetch === ', infoToFetch)
@@ -35,13 +35,13 @@ export function PreviewCard({infoToFetch, previewCardTitle}: PreviewCardProps){
     return(
         <View style={styles.previewCard}>
             <View style={styles.previewCardHeader}>
-                <Text style={styles.previewCardTitle}>{previewCardTitle}</Text>
+                <Text style={styles.previewCardTitle} testID="previewCardTitle">{previewCardTitle}</Text>
             </View>
-            <Divider/>
+            {/* <Divider/> */}
             <View style={styles.previewCardBottom}>
-                <Text style={styles.previewCardValue}>  
+                <Text style={styles.previewCardValue} testID="previewCardValue">  
                 {
-                    preview !== undefined ? (preview) : (<>API is not online.</>)
+                    preview !== undefined ? (Number(preview).toFixed(2)) : (<>API is not online.</>)
                 }    
                 </Text>
             </View>
@@ -51,37 +51,38 @@ export function PreviewCard({infoToFetch, previewCardTitle}: PreviewCardProps){
 
 const styles = StyleSheet.create({
     previewCard: {
-        backgroundColor: '#ffffff',
+        // backgroundColor: '#ffffff',
         width: '90%',
-        height: '13%',
-        borderRadius: 12,
+        // height: '13%',
+        // borderRadius: 12,
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        marginBottom: 16,
-        paddingVertical: 4,
-        elevation: 4,
-        shadowColor: '#52006A',
+        // flexDirection: 'column',
+        // alignItems: 'center',
+        // justifyContent: 'space-around',
+        // marginBottom: 16,
+        // paddingVertical: 4,
+        // elevation: 4,
+        // shadowColor: '#52006A',
     },
     previewCardHeader: {
-        backgroundColor: '#ffffff',
-        width: '100%',
-        borderRadius: 12,
-        paddingLeft: 12
+        // backgroundColor: '#ffffff',
+        // width: '100%',
+        // borderRadius: 12,
+        // paddingLeft: 12
     },
     previewCardBottom: {
-        backgroundColor: '#ffffff',
-        width: '100%',
-        borderRadius: 12,
-        paddingLeft: 12
+        // backgroundColor: '#ffffff',
+        // width: '100%',
+        // borderRadius: 12,
+        // paddingLeft: 12
     },
     previewCardTitle: {
-        fontSize: 22,
-        fontWeight: 'bold'
+        fontSize: 16,
+        color: 'gray'
+        // fontWeight: 'bold'
     },
     previewCardValue: {
-        fontSize: 18,
-        fontWeight: '500'
+        // fontSize: 18,
+        // fontWeight: '500'
     }
 })
