@@ -4,7 +4,7 @@ import { categories } from "../data/categories";
 import { newDateAdjusted } from "../helpers/dateFilter";
 import { Button, Overlay, Icon, Input } from '@rneui/themed';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
+// import DateTimePicker from '@react-native-community/datetimepicker';
 import SelectDropdown from "./SelectDropdown";
 
 export default function AddExpenseForm({ onAdd }: {onAdd: (expense: Expense) => void}){

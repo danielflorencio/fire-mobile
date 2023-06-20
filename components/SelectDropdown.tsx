@@ -24,7 +24,8 @@ export default function SelectDropdown({options, choosenCategory, setChoosenCate
     }
 
     return(
-        <View onTouchEnd={handleChangeVisibility} style={styles.dropdownContainer}>
+        // <View style={styles.dropdownOuterContainer}>
+        <View onTouchEnd={handleChangeVisibility} style={styles.dropdownInnerContainer}>
             {visibility === 'visible' ? (
             options.map((option, arrayIndex) => (
                 <View key={arrayIndex} style={[styles.dropdownOption, {backfaceVisibility: visibility}]} onTouchEnd={() => handlePressOption(arrayIndex)}>
@@ -33,13 +34,19 @@ export default function SelectDropdown({options, choosenCategory, setChoosenCate
             )) ) : (<Text>{choosenCategory}</Text>)
             }
         </View>
+        // {/* </View> */}
     )
 }
 
 const styles = StyleSheet.create({
-    dropdownContainer: {
+    // dropdownOuterContainer: {
+    //     width: '90%',
+    //     height: 50
+    // },
+    dropdownInnerContainer: {
         flex: 0,
-        height: '10%',
+        // width: '100%',
+        height: 30,
         zIndex: 1
     },
     dropdownOption: {

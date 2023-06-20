@@ -1,6 +1,6 @@
 import { Expense } from "../types/expense";
 import { formatDate } from '../helpers/dateFilter'
-import { categories } from '../data/categories'
+// import { categories } from '../data/categories'
 import { View, Text} from "react-native";
 import { StyleSheet } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
