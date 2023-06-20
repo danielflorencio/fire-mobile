@@ -1,14 +1,26 @@
-import { Dimensions, StyleSheet, Text } from 'react-native';
+import { Dimensions, StyleSheet, Text, ScrollView } from 'react-native';
 import { View } from '../../components/Themed';
 import WelcomeMessage from '../../components/WelcomeMessage';
 import {PreviewCard} from '../../components/PreviewCard';
 import BalanceInfo from '../../components/BalanceInfo';
 import { LineChart } from 'react-native-chart-kit';
+import { useState } from 'react';
+import GraphicSection from '../../components/GraphicSection';
 
 export default function TabOneScreen() {
 
+  const [displayedTimeFrame, setDisplayedTimeFrame] = useState<'one-month' | 'six-months' | 'one-year'>();
+
+  const handleSelectTimeFrame = async (newTimeFrame: 'one-month' | 'six-months' | 'one-year') => {
+    if(displayedTimeFrame !== newTimeFrame){
+      // const response = await fetch()
+
+    }
+  } 
+
+
   const linedata = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
     datasets: [
       {
         data: [20, 45, 28, 80, 99, 43],
@@ -18,7 +30,7 @@ export default function TabOneScreen() {
   };
 
   return (
-    <>
+    <ScrollView>
     <View style={styles.container}>
       <WelcomeMessage/>
       <BalanceInfo/>
@@ -30,41 +42,34 @@ export default function TabOneScreen() {
         <PreviewCard previewCardTitle='In 1 Year ' infoToFetch='one-year'/>
       </View>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <View style={styles.chartContainer}>
-      <Text style={{textAlign: 'center'}}>
-        Bezier Line Chart
-      </Text>
-      <LineChart
-        data={linedata}
-        // width={Dimensions.get('window').width} // from react-native
-        width={Dimensions.get('window').width*0.9} // from react-native
-        height={220}
-        yAxisLabel={'$'}
-        chartConfig={{
-          backgroundColor: '#e26a00',
-          backgroundGradientFrom: '#fb8c00',
-          backgroundGradientTo: '#ffa726',
-          decimalPlaces: 2, // optional, defaults to 2dp
-          color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-          style: {
-            borderRadius: 16
-          }
-        }}
-        bezier
-        style={{
-          marginVertical: 8,
-          borderRadius: 16
-        }}
-      />
+      <GraphicSection/>
     </View>
-    </View>
-    </>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   chartContainer: {
     width: '90%',
+  },
+  viewModesContainer: {
+    marginVertical: 6,
+    marginTop: 12,
+    display: 'flex',
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  viewMode: {
+    backgroundColor: '#00ddff',
+    borderRadius: 12,
+    paddingVertical: 3,
+    paddingHorizontal: 9,
+  },
+  viewModeText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 14
   },
   previewsSectionTitle: {
     width: '90%',

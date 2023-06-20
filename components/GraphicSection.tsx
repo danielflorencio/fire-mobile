@@ -1,0 +1,84 @@
+import { useState } from "react";
+import { Dimensions, View, Text, StyleSheet } from "react-native";
+import { LineChart } from "react-native-chart-kit";
+
+export default function GraphicSection(){
+
+    const [displayedTimeFrame, setDisplayedTimeFrame] = useState<'one-month' | 'six-months' | 'one-year'>('six-months');
+
+    const handleSelectTimeFrame = async (newTimeFrame: 'one-month' | 'six-months' | 'one-year') => {
+      if(displayedTimeFrame !== newTimeFrame){
+        // const response = await fetch()
+        
+        setDisplayedTimeFrame(newTimeFrame)
+      }
+    }
+
+    const linedata = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [
+          {
+            data: [20, 45, 28, 80, 99, 43],
+            strokeWidth: 2, // optional
+          },
+        ],
+    };
+
+    return(
+        <View style={styles.chartContainer}>
+        <View style={styles.viewModesContainer}>
+          <View onTouchEnd={() => handleSelectTimeFrame('one-month')} style={displayedTimeFrame === 'one-month' ? ([styles.viewMode, {backgroundColor: '#00ddff'}]) : (styles.viewMode)}><Text style={styles.viewModeText}>1 Month</Text></View>
+          <View onTouchEnd={() => handleSelectTimeFrame('six-months')} style={displayedTimeFrame === 'six-months' ? ([styles.viewMode, {backgroundColor: '#00ddff'}]) : (styles.viewMode)}><Text style={styles.viewModeText}>6 Months</Text></View>
+          <View  onTouchEnd={() => handleSelectTimeFrame('one-year')} style={displayedTimeFrame === 'one-year' ? ([styles.viewMode, {backgroundColor: '#00ddff'}]) : (styles.viewMode)}><Text style={styles.viewModeText}>12 Months</Text></View>
+        </View>
+        <LineChart
+          data={linedata}
+          // width={Dimensions.get('window').width} // from react-native
+          width={Dimensions.get('window').width*0.9} // from react-native
+          height={220}
+          yAxisLabel={'$'}
+          chartConfig={{
+            backgroundColor: '#e26a00',
+            backgroundGradientFrom: '#fb8c00',
+            backgroundGradientTo: '#ffa726',
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            style: {
+              borderRadius: 16
+            }
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 16
+          }}
+        />
+      </View>
+    )
+}
+
+const styles = StyleSheet.create({
+    chartContainer: {
+      width: '90%',
+    },
+    viewModesContainer: {
+      marginVertical: 6,
+      marginTop: 12,
+      display: 'flex',
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'space-around'
+    },
+    viewMode: {
+    //   backgroundColor: '#00ddff',
+      backgroundColor: '#333',
+      borderRadius: 12,
+      paddingVertical: 3,
+      paddingHorizontal: 9,
+    },
+    viewModeText: {
+      color: '#fff',
+      fontWeight: 'bold',
+      fontSize: 14
+    }
+});
