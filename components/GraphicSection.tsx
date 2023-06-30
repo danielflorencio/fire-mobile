@@ -1,10 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dimensions, View, Text, StyleSheet } from "react-native";
 import { LineChart } from "react-native-chart-kit";
+import { Graphic } from "../types/graphic";
 
 export default function GraphicSection(){
 
     const [displayedTimeFrame, setDisplayedTimeFrame] = useState<'one-month' | 'six-months' | 'one-year'>('six-months');
+    const [graphicData, setGraphicData] = useState<Graphic>({labels: [], totalBalance: [20, 45, 28, 80, 99, 43]});
+
+    useEffect(() => {
+      (async () => {
+        const response = await fetch('http://192.168.0.102:8080/graphicalPreview/getGraphicalMonthPreview', {
+            method: 'GET'
+        })
+        const data = await response.json();
+        console.log('DATA BEING RECEIVED ON THE APP: ', data)
+
+        let dailyTotalBalance: number[] = [];
+        dailyTotalBalance.push(data.values[0]);
+        for(let i = 1; i < data.values.length; i++){
+          dailyTotalBalance.push(dailyTotalBalance[i - 1] + data.values[i]);
+        }
+        const newGraphicsDataState: Graphic = {labels: data.labels, totalBalance: dailyTotalBalance};
+        setGraphicData(newGraphicsDataState);
+      })();
+    }, [])
 
     const handleSelectTimeFrame = async (newTimeFrame: 'one-month' | 'six-months' | 'one-year') => {
       if(displayedTimeFrame !== newTimeFrame){
@@ -18,7 +38,7 @@ export default function GraphicSection(){
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
         datasets: [
           {
-            data: [20, 45, 28, 80, 99, 43],
+            data: graphicData.totalBalance,
             strokeWidth: 2, // optional
           },
         ],
