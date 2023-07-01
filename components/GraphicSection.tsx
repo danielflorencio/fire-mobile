@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Dimensions, View, Text, StyleSheet } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { Graphic } from "../types/graphic";
+import { formatQueryDate } from "../helpers/dateFilter";
 
 export default function GraphicSection(){
 
@@ -9,8 +10,22 @@ export default function GraphicSection(){
     const [graphicData, setGraphicData] = useState<Graphic>({labels: [], totalBalance: [20, 45, 28, 80, 99, 43]});
 
     useEffect(() => {
+
+      const currentDate: Date = new Date(); 
+
+      let finalDateQuery: String = formatQueryDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
+      let initialDateQuery: String;
+
+      if(displayedTimeFrame === 'one-month'){
+        initialDateQuery = formatQueryDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate()))
+      } else if(displayedTimeFrame === 'six-months'){
+        initialDateQuery = formatQueryDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 6, currentDate.getDate()))
+      }else{
+        initialDateQuery = formatQueryDate(new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate()))
+      }
+
       (async () => {
-        const response = await fetch('http://192.168.0.102:8080/graphicalPreview/getGraphicalMonthPreview', {
+        const response = await fetch(`http://192.168.0.102:8080/graphicalPreview/getGraphicalPreview?initialDate=${initialDateQuery}&finalDate=${finalDateQuery}`, {
             method: 'GET'
         })
         const data = await response.json();
@@ -24,12 +39,10 @@ export default function GraphicSection(){
         const newGraphicsDataState: Graphic = {labels: data.labels, totalBalance: dailyTotalBalance};
         setGraphicData(newGraphicsDataState);
       })();
-    }, [])
+    }, [displayedTimeFrame])
 
     const handleSelectTimeFrame = async (newTimeFrame: 'one-month' | 'six-months' | 'one-year') => {
       if(displayedTimeFrame !== newTimeFrame){
-        // const response = await fetch()
-        
         setDisplayedTimeFrame(newTimeFrame)
       }
     }
@@ -102,3 +115,10 @@ const styles = StyleSheet.create({
       fontSize: 14
     }
 });
+
+// Library I'm using right now: https://github.com/indiespirit/react-native-chart-kit
+// Best Libraries for charts in React Native: https://blog.logrocket.com/top-8-react-native-chart-libraries-2023/ 
+// Best recommended library: https://github.com/wuxudong/react-native-charts-wrapper
+
+// D3.Js course: https://www.freecodecamp.org/learn/data-visualization/#data-visualization-with-d3 
+// D3.Js tutorial with React Native: https://betterprogramming.pub/d3-and-react-native-an-essential-guide-to-line-graphs-dc1ce392b440 

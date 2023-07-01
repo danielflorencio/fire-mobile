@@ -35,3 +35,9 @@ export const newDateAdjusted = (dateField: string) => {
     let [year, month, day] = dateField.split('-')
     return new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
 }
+
+export const formatQueryDate = (dateToFormat: Date): String => {
+    const queryDate: String = dateToFormat.getFullYear() + '-' + dateToFormat.getMonth().toString().padStart(2, '0') + '-' + dateToFormat.getDate().toString().padStart(2, '0')     
+    return queryDate;
+}
+
