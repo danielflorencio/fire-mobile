@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Dimensions, View, Text, StyleSheet } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { Graphic } from "../types/graphic";
-import { formatQueryDate } from "../helpers/dateFilter";
+import moment from "moment";
 
 export default function GraphicSection(){
 
@@ -12,17 +12,18 @@ export default function GraphicSection(){
     useEffect(() => {
 
       const currentDate: Date = new Date(); 
+      const finalDateQuery = moment(currentDate).format("YYYY-MM-DD");
 
-      let finalDateQuery: String = formatQueryDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()));
-      let initialDateQuery: String;
+      let initialDateQuery; 
 
       if(displayedTimeFrame === 'one-month'){
-        initialDateQuery = formatQueryDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate()))
+        initialDateQuery = moment(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate())).format("YYYY-MM-DD");
       } else if(displayedTimeFrame === 'six-months'){
-        initialDateQuery = formatQueryDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 6, currentDate.getDate()))
+        initialDateQuery = moment(new Date(currentDate.getFullYear(), currentDate.getMonth() - 6, currentDate.getDate())).format("YYYY-MM-DD");
       }else{
-        initialDateQuery = formatQueryDate(new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate()))
+        initialDateQuery = moment(new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate())).format("YYYY-MM-DD");
       }
+
 
       (async () => {
         const response = await fetch(`http://192.168.0.102:8080/graphicalPreview/getGraphicalPreview?initialDate=${initialDateQuery}&finalDate=${finalDateQuery}`, {
