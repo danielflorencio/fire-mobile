@@ -1,33 +1,34 @@
 import { useEffect, useState } from "react";
-import { Dimensions, View, Text, StyleSheet, Alert } from "react-native";
+// import { Dimensions, View, Text, StyleSheet, Alert } from "react-native";
+import { Dimensions, View, Text, StyleSheet } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { Graphic } from "../types/graphic";
 import moment from "moment";
 
-const showAlert = () =>
-  Alert.alert(
-    'Alert Title',
-    'My Alert Msg',
-    [
-      {
-        text: 'Cancel',
-        onPress: () => Alert.alert('Cancel Pressed'),
-        style: 'cancel',
-      },
-    ],
-    {
-      cancelable: true,
-      onDismiss: () =>
-        Alert.alert(
-          'This alert was dismissed by tapping outside of the alert dialog.',
-        ),
-    },
-  );
+// const showAlert = () =>
+//   Alert.alert(
+//     'Alert Title',
+//     'My Alert Msg',
+//     [
+//       {
+//         text: 'Cancel',
+//         onPress: () => Alert.alert('Cancel Pressed'),
+//         style: 'cancel',
+//       },
+//     ],
+//     {
+//       cancelable: true,
+//       onDismiss: () =>
+//         Alert.alert(
+//           'This alert was dismissed by tapping outside of the alert dialog.',
+//         ),
+//     },
+//   );
 
 export default function GraphicSection(){
 
     const [displayedTimeFrame, setDisplayedTimeFrame] = useState<'one-month' | 'six-months' | 'one-year'>('six-months');
-    const [graphicData, setGraphicData] = useState<Graphic>({labels: [], totalBalance: []});
+    const [graphicData, setGraphicData] = useState<Graphic>({labels: [new Date], totalBalance: [0]});
 
     useEffect(() => {
 
@@ -46,8 +47,8 @@ export default function GraphicSection(){
 
       console.log('INITIAL DATE QUERY: ', initialDateQuery);
       console.log('FINAL DATE QUERY: ', finalDateQuery);
-      (async () => {
-        try{
+      try{
+        (async () => {
           const response = await fetch(`http://192.168.0.102:8080/graphicalPreview/getGraphicalPreview?initialDate=${initialDateQuery}&finalDate=${finalDateQuery}`, {
             method: 'GET'
           })
@@ -61,13 +62,11 @@ export default function GraphicSection(){
             }
             const newGraphicsDataState: Graphic = {labels: data.labels, totalBalance: dailyTotalBalance};
             setGraphicData(newGraphicsDataState);
-          } else{
-            showAlert();
           }
-        } catch(Error){
-          console.error('There was an error while trying to fetch resources: ', Error)
-        }
       })();
+      } catch(error){
+        console.log('ERROR: ', error)
+      }
     }, [displayedTimeFrame])
 
     const handleSelectTimeFrame = async (newTimeFrame: 'one-month' | 'six-months' | 'one-year') => {
