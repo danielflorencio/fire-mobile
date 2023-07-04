@@ -1,13 +1,33 @@
 import { useEffect, useState } from "react";
-import { Dimensions, View, Text, StyleSheet } from "react-native";
+import { Dimensions, View, Text, StyleSheet, Alert } from "react-native";
 import { LineChart } from "react-native-chart-kit";
 import { Graphic } from "../types/graphic";
 import moment from "moment";
 
+const showAlert = () =>
+  Alert.alert(
+    'Alert Title',
+    'My Alert Msg',
+    [
+      {
+        text: 'Cancel',
+        onPress: () => Alert.alert('Cancel Pressed'),
+        style: 'cancel',
+      },
+    ],
+    {
+      cancelable: true,
+      onDismiss: () =>
+        Alert.alert(
+          'This alert was dismissed by tapping outside of the alert dialog.',
+        ),
+    },
+  );
+
 export default function GraphicSection(){
 
     const [displayedTimeFrame, setDisplayedTimeFrame] = useState<'one-month' | 'six-months' | 'one-year'>('six-months');
-    const [graphicData, setGraphicData] = useState<Graphic>({labels: [], totalBalance: [20, 45, 28, 80, 99, 43]});
+    const [graphicData, setGraphicData] = useState<Graphic>({labels: [], totalBalance: []});
 
     useEffect(() => {
 
@@ -24,21 +44,29 @@ export default function GraphicSection(){
         initialDateQuery = moment(new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate())).format("YYYY-MM-DD");
       }
 
-
+      console.log('INITIAL DATE QUERY: ', initialDateQuery);
+      console.log('FINAL DATE QUERY: ', finalDateQuery);
       (async () => {
-        const response = await fetch(`http://192.168.0.102:8080/graphicalPreview/getGraphicalPreview?initialDate=${initialDateQuery}&finalDate=${finalDateQuery}`, {
+        try{
+          const response = await fetch(`http://192.168.0.102:8080/graphicalPreview/getGraphicalPreview?initialDate=${initialDateQuery}&finalDate=${finalDateQuery}`, {
             method: 'GET'
-        })
-        const data = await response.json();
-        console.log('DATA BEING RECEIVED ON THE APP: ', data)
-
-        let dailyTotalBalance: number[] = [];
-        dailyTotalBalance.push(data.values[0]);
-        for(let i = 1; i < data.values.length; i++){
-          dailyTotalBalance.push(dailyTotalBalance[i - 1] + data.values[i]);
+          })
+          console.log('IS RESPONSE OK? ', response.ok)
+          if(response.ok){
+            const data = await response.json();
+            let dailyTotalBalance: number[] = [];
+            dailyTotalBalance.push(data.values[0]);
+            for(let i = 1; i < data.values.length; i++){
+              dailyTotalBalance.push(dailyTotalBalance[i - 1] + data.values[i]);
+            }
+            const newGraphicsDataState: Graphic = {labels: data.labels, totalBalance: dailyTotalBalance};
+            setGraphicData(newGraphicsDataState);
+          } else{
+            showAlert();
+          }
+        } catch(Error){
+          console.error('There was an error while trying to fetch resources: ', Error)
         }
-        const newGraphicsDataState: Graphic = {labels: data.labels, totalBalance: dailyTotalBalance};
-        setGraphicData(newGraphicsDataState);
       })();
     }, [displayedTimeFrame])
 
