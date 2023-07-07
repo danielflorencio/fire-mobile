@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 // import { Dimensions, View, Text, StyleSheet, Alert } from "react-native";
 import { Dimensions, View, Text, StyleSheet } from "react-native";
 import { LineChart } from "react-native-chart-kit";
+// import {LineChart} from 'react-native-charts-wrapper';
 import { Graphic } from "../types/graphic";
 import moment from "moment";
 
@@ -28,7 +29,7 @@ import moment from "moment";
 export default function GraphicSection(){
 
     const [displayedTimeFrame, setDisplayedTimeFrame] = useState<'one-month' | 'six-months' | 'one-year'>('six-months');
-    const [graphicData, setGraphicData] = useState<Graphic>({labels: [new Date], totalBalance: [0]});
+    const [graphicData, setGraphicData] = useState<Graphic>({labels: [new Date], totalBalance: [0, 0, 0, 0, 0]});
 
     useEffect(() => {
 
@@ -48,22 +49,22 @@ export default function GraphicSection(){
       console.log('INITIAL DATE QUERY: ', initialDateQuery);
       console.log('FINAL DATE QUERY: ', finalDateQuery);
       try{
-        (async () => {
-          const response = await fetch(`http://192.168.0.102:8080/graphicalPreview/getGraphicalPreview?initialDate=${initialDateQuery}&finalDate=${finalDateQuery}`, {
-            method: 'GET'
-          })
-          console.log('IS RESPONSE OK? ', response.ok)
-          if(response.ok){
-            const data = await response.json();
-            let dailyTotalBalance: number[] = [];
-            dailyTotalBalance.push(data.values[0]);
-            for(let i = 1; i < data.values.length; i++){
-              dailyTotalBalance.push(dailyTotalBalance[i - 1] + data.values[i]);
-            }
-            const newGraphicsDataState: Graphic = {labels: data.labels, totalBalance: dailyTotalBalance};
-            setGraphicData(newGraphicsDataState);
-          }
-      })();
+      //   (async () => {
+      //     const response = await fetch(`http://192.168.0.102:8080/graphicalPreview/getGraphicalPreview?initialDate=${initialDateQuery}&finalDate=${finalDateQuery}`, {
+      //       method: 'GET'
+      //     })
+      //     console.log('IS RESPONSE OK? ', response.ok)
+      //     if(response.ok){
+      //       const data = await response.json();
+      //       let dailyTotalBalance: number[] = [];
+      //       dailyTotalBalance.push(data.values[0]);
+      //       for(let i = 1; i < data.values.length; i++){
+      //         dailyTotalBalance.push(dailyTotalBalance[i - 1] + data.values[i]);
+      //       }
+      //       const newGraphicsDataState: Graphic = {labels: data.labels, totalBalance: dailyTotalBalance};
+      //       setGraphicData(newGraphicsDataState);
+      //     }
+      // })();
       } catch(error){
         console.log('ERROR: ', error)
       }
@@ -92,6 +93,75 @@ export default function GraphicSection(){
           <View onTouchEnd={() => handleSelectTimeFrame('six-months')} style={displayedTimeFrame === 'six-months' ? ([styles.viewMode, {backgroundColor: '#00ddff'}]) : (styles.viewMode)}><Text style={styles.viewModeText}>6 Months</Text></View>
           <View  onTouchEnd={() => handleSelectTimeFrame('one-year')} style={displayedTimeFrame === 'one-year' ? ([styles.viewMode, {backgroundColor: '#00ddff'}]) : (styles.viewMode)}><Text style={styles.viewModeText}>12 Months</Text></View>
         </View>
+        {/* <LineChart style={styles.chart}
+            data={{dataSets:[{label: "demo", values: [{y: 1}, {y: 2}, {y: 1}]}]}}
+          /> */}
+
+
+        <LineChart
+					bezier
+					withHorizontalLabels={false}
+					withVerticalLabels={false}
+					data={{
+						labels: [' 1', ' 2', ' 3', ' 4', ' 5', ' 6'],
+						datasets: [
+							{
+								data: [1, 7, 6, 4, 2, 5],
+								strokeWidth: 2,
+								color: (opacity = 1) => `rgba(255,0,0,${opacity})`, // optional
+							},
+							{
+								data: [2, 4, 6, 8, 8, 2],
+								strokeWidth: 2,
+								color: (opacity = 1) => `rgba(0,0,102, ${opacity})`, // optional
+							},
+							{
+								data: [9, 4, 7, 8, 2, 4],
+								strokeWidth: 2,
+								color: (opacity = 1) => `rgba(0,102,0, ${opacity})`, // optional
+							},
+						],
+						legend: ['Maths', 'SOM', 'DS'],
+					}}
+					width={Dimensions.get('window').width - 16}
+					height={200}
+					chartConfig={{
+						backgroundColor: '#1cc910',
+						backgroundGradientFrom: '#eff3ff',
+						backgroundGradientTo: '#efefef',
+						decimalPlaces: 2,
+						color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+						style: {
+							borderRadius: 16,
+						},
+					}}
+					style={{
+						marginVertical: 8,
+						borderRadius: 16,
+					}}
+				/>
+        {/* <LineChart
+          data={linedata}
+          // width={Dimensions.get('window').width} // from react-native
+          width={Dimensions.get('window').width*0.9} // from react-native
+          height={220}
+          yAxisLabel={'$'}
+          chartConfig={{
+            backgroundColor: '#e26a00',
+            backgroundGradientFrom: '#fb8c00',
+            backgroundGradientTo: '#ffa726',
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1, number = 0) => `rgba(255, 255, 255, ${opacity}) `,
+            style: {
+              borderRadius: 16
+            }
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 16
+          }}
+        />
         <LineChart
           data={linedata}
           // width={Dimensions.get('window').width} // from react-native
@@ -113,7 +183,7 @@ export default function GraphicSection(){
             marginVertical: 8,
             borderRadius: 16
           }}
-        />
+        /> */}
       </View>
     )
 }
@@ -141,6 +211,9 @@ const styles = StyleSheet.create({
       color: '#fff',
       fontWeight: 'bold',
       fontSize: 14
+    },
+    chart: {
+      flex: 1
     }
 });
 
