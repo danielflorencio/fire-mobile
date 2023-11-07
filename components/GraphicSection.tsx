@@ -5,6 +5,7 @@ import { LineChart } from "react-native-chart-kit";
 // import {LineChart} from 'react-native-charts-wrapper';
 import { Graphic } from "../types/graphic";
 import moment from "moment";
+import { calculateGraphicData } from "../helpers/calculateGraphicData";
 
 // const showAlert = () =>
 //   Alert.alert(
@@ -49,22 +50,20 @@ export default function GraphicSection(){
       console.log('INITIAL DATE QUERY: ', initialDateQuery);
       console.log('FINAL DATE QUERY: ', finalDateQuery);
       try{
-      //   (async () => {
-      //     const response = await fetch(`http://192.168.0.102:8080/graphicalPreview/getGraphicalPreview?initialDate=${initialDateQuery}&finalDate=${finalDateQuery}`, {
-      //       method: 'GET'
-      //     })
-      //     console.log('IS RESPONSE OK? ', response.ok)
-      //     if(response.ok){
-      //       const data = await response.json();
-      //       let dailyTotalBalance: number[] = [];
-      //       dailyTotalBalance.push(data.values[0]);
-      //       for(let i = 1; i < data.values.length; i++){
-      //         dailyTotalBalance.push(dailyTotalBalance[i - 1] + data.values[i]);
-      //       }
-      //       const newGraphicsDataState: Graphic = {labels: data.labels, totalBalance: dailyTotalBalance};
-      //       setGraphicData(newGraphicsDataState);
-      //     }
-      // })();
+        (async () => {
+          const response = await fetch(`http://192.168.0.102:8080/graphicalPreview/getGraphicalPreview?initialDate=${initialDateQuery}&finalDate=${finalDateQuery}`, {
+            method: 'GET'
+          })
+          console.log('IS RESPONSE OK? ', response.ok)
+          console.log('Response.status: ', response.status)
+          console.log('RESPONSE: ', response)
+          if(response.ok){
+            const data = await response.json();
+            console.log('DATA: ', data)
+            const graphiData = calculateGraphicData(data);
+            setGraphicData(calculateGraphicData(data));
+          }
+      })();
       } catch(error){
         console.log('ERROR: ', error)
       }
@@ -97,6 +96,9 @@ export default function GraphicSection(){
             data={{dataSets:[{label: "demo", values: [{y: 1}, {y: 2}, {y: 1}]}]}}
           /> */}
 
+
+
+          {/* https://github.com/indiespirit/react-native-chart-kit/issues/37  */}
 
         <LineChart
 					bezier
