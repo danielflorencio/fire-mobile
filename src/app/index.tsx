@@ -14,10 +14,15 @@ export default function Page() {
   return (
     <View style={styles.container}>
       <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      {/* <StatusBar style="auto" /> */}
       <View style={styles.button} onTouchEnd={() => navigateToLogin()}>
-        <Text>Press here to go to login</Text>
+        <Text>Go to login page</Text>
       </View>
+
+      <View style={styles.button} onTouchEnd={() => router.replace('/home')}>
+        <Text>Go to initial page.</Text>
+      </View>
+
     </View>
   );
 }
