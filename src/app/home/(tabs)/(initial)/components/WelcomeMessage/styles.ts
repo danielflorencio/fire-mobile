@@ -1,20 +1,6 @@
-import { StyleSheet, View, Text } from "react-native"
-import { Entypo } from "@expo/vector-icons"
+import { StyleSheet } from 'react-native'
 
-export default function WelcomeMessage(){
-    return(
-        <View style={styles.welcomeMessage}>
-            <View style={styles.chatBubbleContainer}>
-                <Entypo style={styles.chatIcon} name="chat" size={32} color='black' />
-            </View>
-            <View style={styles.messageContainer}>
-                <Text style={styles.chatMessage}>Welcome to Fire, your Financial Independence Advisor.</Text>
-            </View>
-
-        </View>
-    )
-}
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     welcomeMessage: {
         backgroundColor: '#ffffff',
         width: '90%',

@@ -1,6 +1,8 @@
 import { useRouter } from 'expo-router';
+import * as SQLite from 'expo-sqlite';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function Page() {
@@ -10,9 +12,16 @@ export default function Page() {
   const navigateToLogin = () => {
     router.replace('/login');
   }
-  
+
+  useEffect(() => {
+    // const db = SQLite.openDatabase('expense-app.db')
+  })
+
   return (
     <View style={styles.container}>
+      {/* Auth Context Provider */}
+      {/* Expenses Context Provider */}
+      {/* Analytics Context Provider */}
       <Text>Open up App.tsx to start working on your app!</Text>
       {/* <StatusBar style="auto" /> */}
       <View style={styles.button} onTouchEnd={() => navigateToLogin()}>

@@ -1,5 +1,6 @@
 import { useRouter } from "expo-router";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TextInput } from "react-native";
+import LoginForm from "./components/loginForm";
 
 export default function Page(){
 
@@ -14,6 +15,7 @@ export default function Page(){
             <Text>This is the login page.</Text>
             <View style={styles.button} onTouchEnd={() => navigateToLogin()}>
                 <Text>Go to home page.</Text>
+                <LoginForm/>
             </View>
         </View>
     )

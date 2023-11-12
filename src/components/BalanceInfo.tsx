@@ -1,17 +1,20 @@
 import { View, Text, StyleSheet } from "react-native"
-import { useAppSelector } from "../hooks";
-import { Divider } from "@rneui/base";
+// import { useAppSelector } from "../hooks";
+// import { Divider } from "@rneui/base";
 export default function BalanceInfo(){
-    const totalBalance = useAppSelector(state => state.expenses.totalBalance); 
+
+    // const totalBalance = useAppSelector(state => state.expenses.totalBalance); 
+
     return(
         <View style={styles.previewCard}>
             <View style={styles.previewCardHeader}>
                 <Text style={styles.previewCardTitle}>Current Balance: </Text>
             </View>
-            <Divider/>
+            <View style={styles.divider}/>
             <View style={styles.previewCardBottom}>
                 <Text style={styles.previewCardValue}>
-                R$ {totalBalance.toFixed(2)}    
+                {/* R$ {totalBalance.toFixed(2)} */}
+                R$ 1034
                 </Text>
             </View>
         </View>
@@ -55,5 +58,10 @@ const styles = StyleSheet.create({
     previewCardValue: {
         fontSize: 18,
         fontWeight: '500'
+    },
+    divider: {
+        width: '100%',
+        height: 2,
+        backgroundColor: '#eee'
     }
 })
