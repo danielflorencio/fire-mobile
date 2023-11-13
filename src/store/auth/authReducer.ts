@@ -3,23 +3,25 @@ import { AuthAction } from "./authActions";
 
 export interface AuthState {
     isLoggedIn: boolean;
+    isLoading: boolean;
     authToken?: string;
-    userId?: string;
+    userId?: number;
     name?: string;
     email?: string;
 };
 
 export const defaultAuthState: AuthState = {
-  isLoggedIn: false,
+    isLoading: true,
+    isLoggedIn: false,
 };
 
 const authReducer: Reducer<AuthState, AuthAction> = (state, action) => {
   // user successfully authenticated
     if (action.type === "LOG_IN") {
-        localStorage.setItem("user", JSON.stringify(action.payload));
         return {
             ...state,
             isLoggedIn: true,
+            isLoading: false,
             authToken: action.payload.authToken,
             userId: action.payload.userId,
             name: action.payload.name,
@@ -29,8 +31,7 @@ const authReducer: Reducer<AuthState, AuthAction> = (state, action) => {
 
     // log out user
     if (action.type === "LOG_OUT") {
-        localStorage.removeItem("user");
-        return defaultAuthState;
+        return {isLoading: false, isLoggedIn: false}
     }
 
     return defaultAuthState;

@@ -2,7 +2,7 @@ import { View, Text } from "react-native"
 import { Entypo } from "@expo/vector-icons"
 import { styles } from "./styles"
 
-export default function WelcomeMessage(){
+export function WelcomeMessage(){
     return(
         <View style={styles.welcomeMessage}>
             <View style={styles.chatBubbleContainer}>

@@ -13,10 +13,6 @@ export default function Page() {
     router.replace('/login');
   }
 
-  useEffect(() => {
-    // const db = SQLite.openDatabase('expense-app.db')
-  })
-
   return (
     <View style={styles.container}>
       {/* Auth Context Provider */}

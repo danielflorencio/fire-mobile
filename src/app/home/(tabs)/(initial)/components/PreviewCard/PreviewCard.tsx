@@ -9,7 +9,7 @@ type PreviewCardProps = {
     infoToFetch?: string,
     previewCardTitle: string
 }
-export default function PreviewCard({infoToFetch, previewCardTitle}: PreviewCardProps){
+export function PreviewCard({infoToFetch, previewCardTitle}: PreviewCardProps){
 
     const {preview, setPreview} = usePreviewCard(infoToFetch);
 

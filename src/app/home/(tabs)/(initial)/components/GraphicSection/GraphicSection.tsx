@@ -5,7 +5,7 @@ import { LineChart } from "react-native-chart-kit";
 import { styles } from "./styles";
 import { useGraphicSection } from "./graphicSection.hook";
 
-export default function GraphicSection(){
+export function GraphicSection(){
 
   const { handleSelectTimeFrame, displayedTimeFrame } = useGraphicSection();
 

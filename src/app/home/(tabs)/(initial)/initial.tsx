@@ -1,9 +1,9 @@
 import { useRouter } from "expo-router";
 import { View, Text, ScrollView } from "react-native";
-import WelcomeMessage from "./components/WelcomeMessage/Index";
+import {WelcomeMessage} from "./components/WelcomeMessage/WelcomeMessage";
 import BalanceInfo from "../../../../components/BalanceInfo";
-import PreviewCard from "./components/PreviewCard/Index";
-import GraphicSection from "./components/GraphicSection/Index";
+import {PreviewCard} from "./components/PreviewCard/PreviewCard";
+import {GraphicSection} from "./components/GraphicSection/GraphicSection";
 import { styles } from "./styles";
 
 export default function InitialPage(){
